@@ -267,7 +267,7 @@ func (r *RPCClient) GetPeerCount() (int64, error) {
 func (r *RPCClient) validateaddress(address string) (*big.Int, error) {
 	rpcResp, err := r.doPost(r.Url, "validateaddress", []string{address})
 	if err != nil {
-		return true, err
+		return reply, err
 	}
 	var reply ValidateReply
 	err = json.Unmarshal(*rpcResp.ValidateReply, &reply)
