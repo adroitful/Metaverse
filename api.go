@@ -269,11 +269,12 @@ func (r *RPCClient) validateaddress(address string) (*big.Int, error) {
 	if err != nil {
 		return true, err
 	}
-	if err = nil {
-		return false, err
+	var reply ValidateReply
+	err = json.Unmarshal(*rpcResp.ValidateReply, &reply)
+	if err != nil {
+		return nil, err
 	}
-	return false, err
-}
+	return reply, err
 
 func (r *RPCClient) SendTransaction(from, to, value string) (string, error) {
 	rpcResp, err := r.doPost(r.Url, "sendfrom", []string{r.Account, r.Password, from, to, value})
