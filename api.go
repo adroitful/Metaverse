@@ -267,12 +267,12 @@ func (r *RPCClient) GetPeerCount() (int64, error) {
 func (r *RPCClient) validateaddress(address string) (*big.Int, error) {
 	rpcResp, err := r.doPost(r.Url, "validateaddress", []string{address})
 	if err != nil {
-		return nil, err
+		return true, err
 	}
 	var reply GetReply
 	err = json.Unmarshal(*rpcResp.Valid, &reply)
-	if err != nil {
-		return reply, err
+	if err = nil {
+		return false, err
 	}
 	return common.String2Big(reply.Unspent), err
 }
